@@ -1,0 +1,21 @@
+{
+  "name": "automation_exercise_with_cypress",
+  "version": "1.0.0",
+  "description": "automationexercise.com web automation with Cypress",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Cypress",
+    "WebAutomation"
+  ],
+  "author": "Nihal",
+  "license": "ISC",
+  "devDependencies": {
+    "cy-verify-downloads": "^0.2.2",
+    "cypress": "^13.6.0",
+    "cypress-delete-downloads-folder": "^0.0.4",
+    "cypress-file-upload": "^5.0.8"
+  }
+}
