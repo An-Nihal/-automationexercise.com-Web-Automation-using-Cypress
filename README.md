@@ -34,11 +34,11 @@ This repository contains end-to-end tests for the website [https://automationexe
 To run the tests, execute the following command:
 ``` console
 
-npx cypress run    //for headless mode
+npx cypress run                                    (for headless mode)
 ```
 **or**
 ``` console
-npx open cypress //open cypress UI and run specs in browser
+npx open cypress                                  (open cypress UI and run specs in browser)
 ```
 
 Headless mode will automatically execute all the test specs in the specified sequence as configured in **cypress.config.js**
