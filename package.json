@@ -14,8 +14,9 @@
   "license": "ISC",
   "devDependencies": {
     "cy-verify-downloads": "^0.2.2",
-    "cypress": "^13.6.0",
+    "cypress": "^13.4.0",
     "cypress-delete-downloads-folder": "^0.0.4",
-    "cypress-file-upload": "^5.0.8"
+    "cypress-file-upload": "^5.0.8",
+    "cypress-mochawesome-reporter": "^3.7.0"
   }
 }

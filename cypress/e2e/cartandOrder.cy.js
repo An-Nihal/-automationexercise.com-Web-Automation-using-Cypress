@@ -3,6 +3,7 @@ let userData;
 describe('Product, Cart, Payment and Purchase', () => {
   before(() => {
     // we will create a new alias before each test
+    cy.clearAllCookies();
     cy.fixture("userdata").then((data) => {
       userData = data;
     })

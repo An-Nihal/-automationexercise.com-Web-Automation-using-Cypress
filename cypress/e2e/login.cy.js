@@ -1,8 +1,12 @@
+import Login from "../pages/Login";
 let userData;
+
+const lgn = new Login();
 
 describe('Login', () => {
     before(() => {
         // we will create a new alias before each test
+        cy.clearAllCookies();
         cy.fixture("userdata").then((data) => {
             userData = data;
         })
@@ -14,20 +18,24 @@ describe('Login', () => {
 
 
     it('Login with Created User', () => {
-        cy.get('.shop-menu > .nav > :nth-child(4) > a').click();
-        cy.get('[data-qa="login-email"]').type(userData.email);
-        cy.get('[data-qa="login-password"]').type(userData.password);
-        cy.get('[data-qa="login-button"]').click();
-        cy.get(':nth-child(10) > a').should('have.text', ' Logged in as ' + userData.name);
+
+        lgn.clickLoginSignup();
+        lgn.typeEmail(userData.email);
+        lgn.typePassword(userData.password);
+        cy.wait(1000);
+        lgn.clickLoginButton();
+        cy.wait(1000);
+        lgn.verifyLoggedIn(userData.username);
         cy.wait(1000);
     });
 
     it('Login with invalid user', () => {
-        cy.get('.shop-menu > .nav > :nth-child(4) > a').click();
-        cy.get('[data-qa="login-email"]').type('userData@email.com');
-        cy.get('[data-qa="login-password"]').type('userData.password');
-        cy.get('[data-qa="login-button"]').click();
-        cy.get('.login-form > form > p').should('have.text', 'Your email or password is incorrect!');
+
+        lgn.clickLoginSignup();
+        lgn.typeEmail("fake@fakemail.com");
+        lgn.typePassword("ffff55555");
+        lgn.clickLoginButton();
+        lgn.verifyLoginFaliedForInvalidCr();
         cy.wait(1000);
     });
 

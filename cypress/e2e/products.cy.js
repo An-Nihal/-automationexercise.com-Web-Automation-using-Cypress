@@ -1,45 +1,86 @@
+import products from "../pages/Products";
+const prd = new products();
+
 describe('Products Page', () => {
-    beforeEach(() => {
-        cy.visit(Cypress.env('baseurl') + '/products');
+    before(() => {
+        // we will create a new alias before each test
+        cy.clearAllCookies();
     })
 
-    it('search a product', () => {
-        //search some jeans
-        cy.get('#search_product').should('be.visible');
-        cy.get('#search_product').type('jeans');
-        cy.get('#submit_search').click();
-        cy.wait(1000);
+    beforeEach(() => {
+        cy.visit(Cypress.env('baseurl') + '/products');
+        cy.clearAllSessionStorage();
+    })
 
-        //now clear search bar and search some tops
-
-        cy.get('#search_product').clear();
-        cy.get('#search_product').type('top');
-        cy.get('#submit_search').click();
+    it('search product', () => {
+        prd.verifySearchBarVisibility();
+        //search 
+        prd.searchAndSubmit('jeans');
+        cy.wait(2000);
+        //now clear search bar and search
+        prd.clearSearchBar();
+        prd.searchAndSubmit('tops');
         cy.wait(1000);
     });
 
     it('View product Category', () => {
-        // Selecting Men's T-shirt Category and verifying
-        cy.get(':nth-child(2) > .panel-heading > .panel-title > a').click();
-        cy.get('#Men > .panel-body > ul > :nth-child(1) > a').should('be.visible');
-        cy.get('#Men > .panel-body > ul > :nth-child(1) > a').click();
-        cy.get('.title').should('have.text', 'Men - Tshirts Products');
+        // Selecting Women's category products and verifying the search result
+        prd.expandWomenCategory();
+        prd.clickWomenDress();
+        prd.verifyWomenDressSrchResult();
+
+
+        prd.expandWomenCategory();
+        prd.clickWomenSaree();
+        prd.verifyWomenSareeSrchResult();
+
+
+        prd.expandWomenCategory();
+        prd.clickWomenTop();
+        prd.verifyWomenTopSrchResult();
         cy.wait(1000);
 
-        //Kids dress category and verifying
-        cy.get(':nth-child(3) > .panel-heading > .panel-title > a').click();
-        cy.get('#Kids > .panel-body > ul > :nth-child(1) > a').should('be.visible');
-        cy.get('#Kids > .panel-body > ul > :nth-child(1) > a').click();
-        cy.get('.title').should('have.text', 'Kids - Dress Products');
+        //Men's product Category
+
+        prd.expandMenCategory();
+        prd.verifyMenTshirtVisibility();
+        prd.clickMenTshirt();
+        prd.verifyMenTshirtSearchResult();
+
+
+        prd.expandMenCategory();
+        prd.clickMenJeans();
+        prd.verifyMenJeansSearchResult();
         cy.wait(1000);
+
+
+        //Kid's Category Product
+
+        prd.expandKidsCategory();
+        prd.clickKidsDress();
+        prd.verifyKidsDressSrchResult();
+
+
+        prd.expandKidsCategory();
+        prd.clickKidsTopNShirt();
+        prd.verifyKidsTopNShirtSrchResult();
+        cy.wait(1000);
+
     });
 
     it('Verifying Brands product', () => {
-        cy.get('.brands-name > .nav > :nth-child(2) > a').should('be.visible');
-        cy.get('.brands-name > .nav > :nth-child(2) > a').click();
-        cy.get('.title').should('have.text', 'Brand - H&M Products');
+        prd.clickBrandPolo();
+        prd.verifyBrandPolo();
+
+        prd.clickBrandHnM();
+        prd.verifyBrandHnM();
+
+        prd.clickBrandMadame();
+        prd.verifyBrandMadame();
+
+        prd.clickBrandBabyhug();
+        prd.verifyBrandBabyhug();
 
     });
-
 
 });
